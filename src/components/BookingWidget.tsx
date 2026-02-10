@@ -124,7 +124,7 @@ function BookingWidget() {
         <div
           className="border-t-[#D7AB4E] border-l-[#D7AB4E] border-r-[#666666] border-b-[#666666]
     border-2 rounded-3xl lg:rounded-full bg-gradient-to-l from-[#303030] to-[#111111]
-    w-full xs:w-[95%] md:w-[70%] lg:w-[80%] xl:w-[90%] 2xl:w-full
+    w-full xs:w-[95%] md:w-[80%] lg:w-[80%] xl:w-[90%] 2xl:w-full
     m-auto h-fit lg:h-32 p-0 lg:p-14
     gap-5 flex flex-col items-center lg:flex-row  lg:justify-center
     2xl:gap-14 2xl:p-16"
@@ -185,10 +185,15 @@ function BookingWidget() {
                       </div>
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-72 sm:w-80 p-4 bg-white" align="center">
+                  <PopoverContent
+                    className="w-72 sm:w-80 p-4 bg-white"
+                    align="center"
+                  >
                     <div className="grid gap-4">
                       <div className="space-y-2">
-                        <h4 className="poppins-bold text-lg leading-none text-primary">Select Guests</h4>
+                        <h4 className="poppins-bold text-lg leading-none text-primary">
+                          Select Guests
+                        </h4>
                         <p className="text-sm poppins-light text-muted-foreground">
                           Set the number of adults and children.
                         </p>
@@ -214,7 +219,9 @@ function BookingWidget() {
                             >
                               <Minus className="h-3 w-3" />
                             </Button>
-                            <span className="w-4 text-center text-sm poppins-light">{adults}</span>
+                            <span className="w-4 text-center text-sm poppins-light">
+                              {adults}
+                            </span>
                             <Button
                               variant="outline"
                               size="icon"
@@ -243,12 +250,16 @@ function BookingWidget() {
                               variant="outline"
                               size="icon"
                               className="h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 border-none"
-                              onClick={() => setChildren(Math.max(0, children - 1))}
+                              onClick={() =>
+                                setChildren(Math.max(0, children - 1))
+                              }
                               disabled={children <= 0}
                             >
                               <Minus className="h-3 w-3" />
                             </Button>
-                            <span className="w-4 text-center text-sm poppins-light">{children}</span>
+                            <span className="w-4 text-center text-sm poppins-light">
+                              {children}
+                            </span>
                             <Button
                               variant="outline"
                               size="icon"
@@ -277,10 +288,9 @@ function BookingWidget() {
               >
                 Search
               </button>
-
             </Link>
 
-            <div className="absolute left-14 xs:left-20 md:left-2 lg:left-3 top-10 bg-black rounded-full px-1 py-1">
+            <div className="absolute left-16 xs:left-20 md:left-2 lg:left-3 top-10 bg-black rounded-full px-1 py-1">
               <Search size={18} color="white" />
             </div>
           </div>

@@ -10,19 +10,19 @@ const Rooms = () => {
 
   const roomCount = useMemo(() => AvaibleRooms.length, [AvaibleRooms.length]);
 
-  useEffect(() => {
-    if (roomCount === 0) {
-      toast.error("Go back home and search available rooms ", {
-        position: "top-center",
-        style: {
-          background: "#dfab4e", // light orange background
-          color: "black", // deep amber text
-          border: "1px solid #fbbf24",
-          fontWeight: "600",
-        },
-      });
-    }
-  }, [roomCount]); // Runs only when count changes
+  // useEffect(() => {
+  //   if (roomCount === 0) {
+  //     toast.error("Go back home and search available rooms ", {
+  //       position: "top-center",
+  //       style: {
+  //         background: "#dfab4e", // light orange background
+  //         color: "black", // deep amber text
+  //         border: "1px solid #fbbf24",
+  //         fontWeight: "600",
+  //       },
+  //     });
+  //   }
+  // }, [roomCount]); // Runs only when count changes
   return (
     <>
       <div>

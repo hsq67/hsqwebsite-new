@@ -50,11 +50,15 @@ const Datepicker: React.FC<DatepickerProps> = ({
             mode="single"
             selected={value ? new Date(value) : undefined}
             captionLayout="dropdown"
+            disabled={(date) =>
+              date < new Date(new Date().setHours(0, 0, 0, 0))
+            }
             modifiers={{
               today: undefined,
             }}
             modifiersClassNames={{
               selected: "text-white rounded-full",
+              disabled: "opacity-40  cursor-not-allowed",
             }}
             onSelect={(SelectedDate) => {
               // setDate(date);

@@ -513,14 +513,14 @@ const Index = () => {
             // centeredSlides={true}
             autoplay={{ delay: 2000, disableOnInteraction: false }}
             breakpoints={{
-              0: { slidesPerView: 1.3, spaceBetween: 40 }, // mobile → 1 card
+              0: { slidesPerView: 1, spaceBetween: 40 }, // mobile → 1 card
               400: {
-                slidesPerView: 1.5,
+                slidesPerView: 1,
                 spaceBetween: 30,
                 // centeredSlides: true,
               },
               411: {
-                slidesPerView: 1.3,
+                slidesPerView: 1,
                 spaceBetween: 30,
               },
               768: {

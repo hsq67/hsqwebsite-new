@@ -173,18 +173,10 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
-            <p className="mt-6 text-[11px] lg:text-[13px] text-white/70">
-              Designed and developed by{" "}
-              <Link to="https://vorniqosolutions.com/">
-                <span className="text-primary">Vorniqo solutions</span>
-              </Link>
-            </p>
           </div>
         </div>
       </div>
-      <div className="flex justify-end">
-      </div>
+      <div className="flex justify-end"></div>
       {/* Bottom bar */}
       <div className="relative border-t border-white/10 bg-black">
         <div className="mx-auto max-w-7xl px-6 py-3 text-center text-xs text-primary">

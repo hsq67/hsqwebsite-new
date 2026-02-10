@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import bookbg from "../assets/Book/bookbg.webp";
-import { ArrowRight, PhoneCall, MailIcon, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  PhoneCall,
+  MailIcon,
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import BookingCard from "../components/cards/BookingCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -17,6 +24,8 @@ import Laundry from "@/components/svg/Bookingpage/Laundry";
 import Parking from "@/components/svg/Bookingpage/Parking";
 import Conference from "@/components/svg/Bookingpage/Conference";
 import Roomservice from "@/components/svg/Bookingpage/Roomservice";
+import Restaurant from "@/components/svg/Bookingpage/Restaurant";
+import Iron from "@/components/svg/Bookingpage/Iron";
 // booking widget
 import BookingWidget from "@/components/BookingWidget";
 import WhatsAppButton from "@/components/buttons/Whatsapp";
@@ -45,14 +54,19 @@ function Booking() {
   };
 
   // Extract unique categories from fetched rooms
-  const categories = ["All Rooms", ...new Set(rooms.map((roomGroup) => roomGroup.categoryName))];
+  const categories = [
+    "All Rooms",
+    ...new Set(rooms.map((roomGroup) => roomGroup.categoryName)),
+  ];
 
   // Flatten the rooms from all categories for "All Rooms" view, or filter by specific category
   const getFilteredRooms = () => {
     if (selectedCategory === "All Rooms") {
       return rooms.flatMap((group) => group.rooms);
     }
-    const categoryGroup = rooms.find((group) => group.categoryName === selectedCategory);
+    const categoryGroup = rooms.find(
+      (group) => group.categoryName === selectedCategory,
+    );
     return categoryGroup ? categoryGroup.rooms : [];
   };
 
@@ -107,9 +121,10 @@ function Booking() {
                   onClick={() => setSelectedCategory(category)}
                   className={`
                     px-4 py-2 rounded-full text-sm md:text-base poppins-medium transition-all duration-300 whitespace-nowrap
-                    ${selectedCategory === category
-                      ? "bg-[#D7AB4E] text-white shadow-md scale-105"
-                      : "bg-white text-gray-700 hover:bg-[#D7AB4E]/20 hover:text-[#D7AB4E]"
+                    ${
+                      selectedCategory === category
+                        ? "bg-[#D7AB4E] text-white shadow-md scale-105"
+                        : "bg-white text-gray-700 hover:bg-[#D7AB4E]/20 hover:text-[#D7AB4E]"
                     }
                   `}
                 >
@@ -142,7 +157,7 @@ function Booking() {
                     500: {
                       slidesPerView: 2,
                       centeredSlides: false,
-                      spaceBetween: 20,
+                      spaceBetween: 35,
                     },
                     1024: {
                       slidesPerView: 3,
@@ -196,7 +211,7 @@ function Booking() {
             </p>
           </div>
           {/* Amenities Card */}
-          <div className="mr-5 ml-5 poppins-medium lg:max-w-4xl lg:m-auto h-fit sm:h-40 2xl:max-w-[90%] 2xl:h-56 bg-primary rounded-lg  justify-center p-8 gap-6 md:gap-5 lg:gap-10 flex flex-wrap sm:flex-nowrap flex-row">
+          <div className="mr-5 ml-5 poppins-medium lg:max-w-4xl lg:m-auto h-fit md:h-72 lg:h-40 2xl:max-w-[90%] 2xl:h-56 bg-primary rounded-lg  justify-center p-8 gap-6 md:gap-5 lg:gap-10 flex flex-wrap lg:flex-nowrap flex-row">
             {/* wifi */}
             <div
               className="bg-white w-28 h-28 rounded-lg p-4 flex flex-col justify-center items-center 
@@ -258,6 +273,30 @@ function Booking() {
               </div>
               <p>Parking</p>
             </div>
+            {/* Restaurant*/}
+            <div
+              className="bg-white w-28 h-28 rounded-lg p-4 flex flex-col justify-center items-center 
+                transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 2xl:w-32 2xl:h-32"
+            >
+              <div className="bg-black relative rounded-full w-12 h-12  ">
+                <div className="pt-2 pl-2">
+                  <Restaurant />
+                </div>
+              </div>
+              <p>Restaurant</p>
+            </div>
+            {/* iron*/}
+            <div
+              className="bg-white w-28 h-28 rounded-lg p-4 flex flex-col justify-center items-center 
+                transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 2xl:w-32 2xl:h-32"
+            >
+              <div className="bg-black relative rounded-full w-12 h-12  ">
+                <div className="pt-2 pl-2">
+                  <Iron />
+                </div>
+              </div>
+              <p>Iron</p>
+            </div>
           </div>
           {/* whatsapp button */}
           <div className="relative bottom-2 right-2">
@@ -283,7 +322,11 @@ function Booking() {
               {/* mail */}
               <div className="flex items-center whitespace-nowrap overflow-hidden text-ellipsis">
                 <div className="bg-primary py-[5px] px-[5px] md:px-2 md:py-2 rounded-full flex-shrink-0">
-                  <MailIcon size={20} className="text-black" strokeWidth={2.5} />
+                  <MailIcon
+                    size={20}
+                    className="text-black"
+                    strokeWidth={2.5}
+                  />
                 </div>
                 <p className="text-sm md:text-lg pl-4 truncate">
                   hsqtowers@gmail.com
