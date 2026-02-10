@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HSQ Hotels Design System - Luxury Mountain Resort 
+All colors MUST be HSL for proper theming.
+*/
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+/* .great-vibes-regular {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: "Tuesday";
+  src: url("/TuesdayNight.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.Tuesdaynight {
+  font-family: "Tuesday", "Great Vibes", cursive;
+  font-weight: lighter;
+  /* font-size: 50px; */
+}
+
+/* .sacramento-regular {
+  font-family: "Sacramento", cursive;
+  font-weight: 400;
+  font-style: normal;
+} */
+
+.bookbtn {
+  background-color: white;
+  color: black;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #000;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.backgroundcolor {
+  background-color: #fff2db;
+}
+@layer base {
+  :root {
+    /* HSQ Brand Colors */
+    --hsq-gold: 41 63% 58%; /* #d7ab4e - Updated */
+    --hsq-black: 240 4% 4%; /* #0B0B0C */
+    --hsq-white: 0 0% 100%; /* #FFFFFF */
+    --hsq-offwhite: 60 14% 96%; /* #F7F7F5 */
+    --hsq-graphite: 240 4% 11%; /* #1A1A1C */
+
+    /* Primary theme mapping */
+    --background: 60 14% 96%; /* HSQ off-white */
+    --foreground: 240 4% 4%; /* HSQ black */
+
+    --card: 0 0% 100%; /* HSQ white */
+    --card-foreground: 240 4% 4%; /* HSQ black */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 4% 4%;
+
+    --primary: 41 63% 58%; /* #d7ab4e - Updated to match hsq-gold */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4% 11%; /* HSQ graphite */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 60 14% 96%; /* HSQ off-white */
+    --muted-foreground: 240 4% 45%;
+
+    --accent: 41 63% 58%; /* #d7ab4e - Updated to match primary */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 4% 85%;
+    --input: 240 4% 85%;
+    --ring: 41 63% 58%; /* #d7ab4e - Updated to match primary */
+
+    --radius: 1rem;
+
+    /* Custom HSQ Design Tokens */
+    --gradient-gold: linear-gradient(135deg, hsl(41 63% 58%), hsl(41 63% 58%));
+    --gradient-dark: linear-gradient(
+      135deg,
+      hsl(var(--hsq-black)),
+      hsl(var(--hsq-graphite))
+    );
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--hsq-black) / 0.25);
+    --shadow-gold: 0 10px 30px -10px hsl(41 63% 58% / 0.3);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ... rest of your CSS */
+  }
+
+  .dark {
+    --background: 240 4% 4%; /* HSQ black */
+    --foreground: 0 0% 100%; /* HSQ white */
+
+    --card: 240 4% 11%; /* HSQ graphite */
+    --card-foreground: 0 0% 100%;
+
+    --popover: 240 4% 11%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 41 63% 58%; /* #d7ab4e - Updated */
+    --primary-foreground: 240 4% 4%;
+
+    --secondary: 240 4% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 4% 15%;
+    --muted-foreground: 240 4% 65%;
+
+    --accent: 41 63% 58%; /* #d7ab4e - Updated */
+    --accent-foreground: 240 4% 4%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 4% 20%;
+    --input: 240 4% 20%;
+    --ring: 41 63% 58%; /* #d7ab4e - Updated */
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .theme {
+    --animate-meteor: meteor 5s linear infinite;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* HSQ Component Utilities */
+  .hsq-gold {
+    @apply text-[hsl(var(--hsq-gold))];
+  }
+
+  .hsq-gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .hsq-gradient-dark {
+    background: var(--gradient-dark);
+  }
+
+  .hsq-shadow-luxury {
+    box-shadow: var(--shadow-luxury);
+  }
+
+  .hsq-shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .hsq-transition {
+    transition: var(--transition-smooth);
+  }
+}
+
+/* ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---break---
+*/
+
+@theme inline {
+  @keyframes meteor {
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
+    }
+  }
+}

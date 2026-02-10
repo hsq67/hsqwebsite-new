@@ -1,0 +1,29 @@
+
+
+#d7ab4e
+
+clip-path: ellipse(62% 8% at 2% 100%);
+
+right top
+clip-path: polygon(100% 0, 83% 0, 100% 19%);
+
+
+| **main** value | **Meaning**                      | Typical icon prefix |
+| -------------- | -------------------------------- | ------------------- |
+| `Thunderstorm` | Thunderstorms                    | 11d / 11n           |
+| `Drizzle`      | Light rain / drizzle             | 09d / 09n           |
+| `Rain`         | Rain                             | 10d / 10n           |
+| `Snow`         | Snow                             | 13d / 13n           |
+| `Mist`         | Mist                             | 50d / 50n           |
+| `Smoke`        | Smoke                            | 50d / 50n           |
+| `Haze`         | Haze                             | 50d / 50n           |
+| `Dust`         | Dust                             | 50d / 50n           |
+| `Fog`          | Fog                              | 50d / 50n           |
+| `Sand`         | Sand                             | 50d / 50n           |
+| `Ash`          | Volcanic ash                     | 50d / 50n           |
+| `Squall`       | Wind gusts                       | 50d / 50n           |
+| `Tornado`      | Tornado                          | 50d / 50n           |
+| `Clear`        | Clear sky                        | 01d / 01n           |
+| `Clouds`       | Cloudy (few / broken / overcast) | 02d–04d             |
+
+
