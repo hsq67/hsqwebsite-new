@@ -76,9 +76,8 @@ function Gallery() {
           {/* rebin */}
           <div className="flex rounded-md  gap-2 bg-[#FDEBC7] w-full justify-center flex-wrap  lg:w-[43%] m-auto mb-8 ">
             {categories.map((cat) => (
-              <div className="">
+              <div key={cat.name} className="">
                 <button
-                  key={cat.name}
                   onClick={() => setActive(cat.name)}
                   className={`px-3 lg:px-10 py-2 rounded-md text-sm poppins-semibold transition 2xl:text-xl ${
                     active === cat.name

@@ -252,7 +252,7 @@ const Index = () => {
   const allowedCategories = ["Deluxe", "Executive", "Presidential", "Standard"];
 
   const filtered = useMemo(() => {
-    return rooms
+    return (Array.isArray(rooms) ? rooms : [])
       .filter((cat) => allowedCategories.includes(cat.categoryName))
       .map((cat) => ({
         categoryName: cat.categoryName,
