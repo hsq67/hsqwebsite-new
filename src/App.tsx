@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { usePageTracking } from "@/hooks/usePageTracking";
+import TopBanner from "@/components/layout/Banner";
 // Pages
 import Index from "@/pages/Index";
 const Rooms = lazy(() => import("./pages/Rooms"));
@@ -36,8 +37,12 @@ const InnerApp = () => {
   usePageTracking();
   return (
     <div className="min-h-screen flex flex-col">
+      <TopBanner />
+
       <Header />
+
       <Suspense fallback={<FrontLogo />}>
+        {/* <div className=""> */}
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/rooms" element={<Rooms />} />
@@ -57,6 +62,7 @@ const InnerApp = () => {
           <Route path="/3d" element={<Renderpage />} />
           <Route path="/restaurent" element={<Restaurent />} />
         </Routes>
+        {/* </div> */}
       </Suspense>
     </div>
   );

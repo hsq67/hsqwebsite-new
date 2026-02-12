@@ -22,7 +22,7 @@ function ContactForm() {
         "service_iht1fpf", // e.g. service_123xyz
         "template_8lgky9l", // e.g. template_abc456
         contactForm,
-        `${EMAIL_API_KEY}` // e.g. 0aBcDeFgHiJk
+        `${EMAIL_API_KEY}`, // e.g. 0aBcDeFgHiJk
       );
 
       // console.log("SUCCESS!", response.status, response.text);
@@ -53,7 +53,7 @@ function ContactForm() {
   };
   // Step 2: Handle input changes
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     // console.log("", name, value);
@@ -73,7 +73,7 @@ function ContactForm() {
   return (
     <>
       {/* main card */}
-      <div className="relative  z-10 bg-[#FFF9EF] shadow-xl rounded-3xl">
+      <div className="relative  z-10 bg-[#FFF9EF] shadow-2xl rounded-3xl">
         {/* Top Right Clip Shape */}
         <div
           className="absolute top-0 right-0 bg-primary rounded-3xl w-[400px] lg:w-[500px] h-[400px]"
@@ -98,7 +98,7 @@ function ContactForm() {
             {/* first  */}
             <div className="">
               <input
-                className="px-5 py-[10px] rounded-md focus:outline-blue-500"
+                className="px-5 py-[10px] rounded-md focus:outline-blue-500 w-full lg:w-96 border border-gray-400"
                 type="text"
                 name="firstName"
                 value={contactForm.firstName}
@@ -109,7 +109,7 @@ function ContactForm() {
             {/* last name */}
             <div className="">
               <input
-                className="px-5 py-[10px] rounded-md focus:outline-blue-500"
+                className="px-5 py-[10px] rounded-md focus:outline-blue-500 w-full lg:w-96 border border-gray-400"
                 type="text"
                 name="lastName"
                 value={contactForm.lastName}
@@ -120,7 +120,8 @@ function ContactForm() {
             {/* contact */}
             <div className="">
               <input
-                className="px-5 py-[10px] rounded-md focus:outline-blue-500"
+                className="px-5 py-[10px]  w-full lg:w-96 rounded-md border border-gray-400
+               focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="text"
                 name="contact"
                 value={contactForm.contact}
@@ -134,7 +135,7 @@ function ContactForm() {
                 name="email"
                 value={contactForm.email}
                 onChange={handleChange}
-                className="px-5 py-[10px] rounded-md focus:outline-blue-500"
+                className="px-5 py-[10px] rounded-md focus:outline-blue-500 w-full lg:w-96 border border-gray-400"
                 type="text"
                 placeholder="Email Address:"
               />
@@ -147,7 +148,7 @@ function ContactForm() {
                 value={contactForm.message}
                 onChange={handleChange}
                 rows={5}
-                className="p-4 rounded-lg border-none outline-none bg-white focus:outline-blue-500 shadow-sm w-full md:col-span-2"
+                className="p-4 rounded-lg bg-white focus:outline-blue-500 shadow-sm w-full md:col-span-2 border border-gray-400"
               ></textarea>
             </div>
             {/* button */}

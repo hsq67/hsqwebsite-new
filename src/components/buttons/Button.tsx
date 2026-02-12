@@ -10,7 +10,7 @@ interface nameprop {
 const CommanButton: React.FC<nameprop> = ({ label, className }) => {
   return (
     <button
-      className={`px-3 py-1 rounded-2xl w-36 poppins-semibold bg-gradient-to-r from-[#D7AA4D] to-[#D49237] transition-all duration-300 ease-out hover:shadow-xl hover:cursor-pointer hover:scale-110 ${className} `}
+      className={`px-3 py-1 rounded-2xl w-36 poppins-semibold bg-gradient-to-r from-[#D7AA4D] to-[#D49237]  hover:shadow-2xl hover:cursor-pointer  ${className} `}
     >
       {label}
     </button>

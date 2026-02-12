@@ -16,7 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 // import { Get_All_Available_Room } from "@/api/roomsApi";
 import { useRoomStore } from "@/store/store";
-import { Room } from "@/types/Room";
+// import { Room } from "@/types/Room";
 // Svg images components
 import Wifi from "@/components/svg/Bookingpage/Wifi";
 import Gym from "@/components/svg/Bookingpage/Gym";
@@ -34,20 +34,6 @@ function Booking() {
   const { rooms, setRooms } = useRoomStore();
   const [selectedCategory, setSelectedCategory] = useState("All Rooms");
   const roomsRef = useRef<HTMLDivElement>(null);
-
-  // Data is fetched in Index.tsx and stored in store.
-  // We rely on that data here.
-  // useEffect(() => {
-  //   const fetchRooms = async () => {
-  //     try {
-  //       const data = await Get_All_Available_Room();
-  //       setRooms(data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch rooms:", error);
-  //     }
-  //   };
-  //   fetchRooms();
-  // }, [setRooms]);
 
   const handleScrollToRooms = () => {
     roomsRef.current?.scrollIntoView({ behavior: "smooth" });

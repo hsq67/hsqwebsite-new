@@ -21,8 +21,4 @@ export interface PostBookingData {
   paymentMethod: string;
   promoCode?: string;
   expectedArrivalTime: string;
-  //   additional data
-  //   roomId: string;
-  //   checkInDate: string;
-  //   checkOutDate: string;
 }

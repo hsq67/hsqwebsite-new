@@ -1,4 +1,5 @@
-export interface Room {
+// that type for category rooms api which room show on booking page and indexpage
+interface Room {
   id?: string;
   rate: number;
   images: string[];
@@ -6,10 +7,8 @@ export interface Room {
   publicDescription: string;
   adults: number;
   infants: number;
-  // bedType?: string;
-  // category?: string;
 }
-export interface AvailableRooms {
+interface AvailableRoom {
   _id: string;
   view: string;
   roomNumber: string;
@@ -18,12 +17,12 @@ export interface AvailableRooms {
   adults: number;
   infants: number;
 }
-export interface CategoryGroupAvailableRoom {
+export interface AvailableRoomCategory {
   adultsCapacity: string;
   infantsCapacity: string;
   amenities?: string[] | null;
   availableCount?: number;
-  availableRooms: AvailableRooms[];
+  availableRooms: AvailableRoom[];
   bedType: string;
   category: string;
   cleanliness?: string | null;
@@ -31,12 +30,51 @@ export interface CategoryGroupAvailableRoom {
   publicDescription?: string | null;
   publicName: string;
   startingRate: number;
-  // message: string;
 }
-export type AvailableRoomGroupedResponse = CategoryGroupAvailableRoom[];
+export type AvailableRoomCategoryResponse = AvailableRoomCategory[];
 
 export interface CategoryGroup {
   categoryName: string;
   rooms: Room[];
 }
 export type RoomsGroupedResponse = CategoryGroup[];
+
+// Backend-supported categories
+export type BackendRoomCategory =
+  | "Standard"
+  | "Duluxe-Plus"
+  | "Deluxe"
+  | "Executive"
+  | "Presidential";
+
+// UI-supported categories (includes "All")
+export type RoomCategory = BackendRoomCategory | "All";
+
+// Available Room details from API
+export interface AvailableRoomDetail {
+  id: string;
+  rate: number;
+  amenities: string[];
+  images: string[];
+  description?: string;
+  adults: number;
+  infants: number;
+  roomCapacity: number;
+  roomNumber: string;
+  bedType: "Studio" | "One Bed" | "Two Bed";
+  cleanliness: string;
+  view: "Lobby Facing" | "Terrace View" | "Valley View" | "Corner";
+  category: BackendRoomCategory;
+}
+
+// API Response
+export interface AvailableRoomsResponse {
+  success: boolean;
+  count: number;
+  rooms: AvailableRoomDetail[];
+}
+
+// Request parameters for room fetching
+export interface GetAvailableRoomsParams {
+  category?: BackendRoomCategory;
+}

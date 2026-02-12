@@ -70,7 +70,6 @@ const teamMembers = [
   },
 ];
 
-
 function About() {
   return (
     <>
@@ -94,7 +93,7 @@ function About() {
             </p>
             <div className="flex justify-betweenflex-row items-center gap-3 sm:gap-4">
               <div className="border-t-0 border  w-20 md:w-48 lg:w-96 border-white" />
-              <Link to={"/book"}>
+              <Link to={"/rooms"}>
                 <Viewbutton label="Book Now"></Viewbutton>
               </Link>
 
@@ -267,7 +266,10 @@ function About() {
                 className="pb-12"
               >
                 {teamMembers.map((member) => (
-                  <SwiperSlide key={member.id} className="flex justify-center pb-10">
+                  <SwiperSlide
+                    key={member.id}
+                    className="flex justify-center pb-10"
+                  >
                     <div className="bg-white rounded-2xl shadow-lg w-72 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                       {/* Team Member Image */}
                       <div className="h-48 sm:h-52 md:h-56 lg:h-64 2xl:h-72 overflow-hidden">
@@ -294,7 +296,6 @@ function About() {
                   </SwiperSlide>
                 ))}
               </Swiper>
-
 
               {/* Custom Navigation Buttons - Styled like Booking Page */}
               <button className="swiper-button-prev !hidden sm:!flex !w-12 !h-12 !bg-[#D7AB4E] !rounded-full !shadow-lg !text-white hover:!bg-[#c69a3d] hover:!scale-110 !transition-all !duration-300 !left-0 !after:content-[''] justify-center items-center">
@@ -328,7 +329,8 @@ function About() {
                       Round-the-Clock Service
                     </h4>
                     <p className="poppins-medium text-gray-600 text-sm">
-                      Always available to assist you with any request, day or night.
+                      Always available to assist you with any request, day or
+                      night.
                     </p>
                   </div>
 
@@ -354,7 +356,8 @@ function About() {
                       Successful Projects
                     </h4>
                     <p className="poppins-medium text-gray-600 text-sm">
-                      Proven experience turning ideas into reliable, scalable solutions.
+                      Proven experience turning ideas into reliable, scalable
+                      solutions.
                     </p>
                   </div>
                 </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import
 function BookingFoam() {
   const navigate = useNavigate();
-  const { setBookingFormData, BookingFormData } = useRoomStore();
+  const { setBookingFormData, bookingFormData } = useRoomStore();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",

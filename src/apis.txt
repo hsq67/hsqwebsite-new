@@ -27,3 +27,7 @@ clip-path: polygon(100% 0, 83% 0, 100% 19%);
 | `Clouds`       | Cloudy (few / broken / overcast) | 02d–04d             |
 
 
+
+ gaming svg
+
+work area 

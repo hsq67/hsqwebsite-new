@@ -27,10 +27,20 @@ function Decor() {
         </section>
         {/* body section with cards */}
         <section className="backgroundcolor space-y-6 pt-10 pb-10">
-          <DecorCard image="/Gallery/Decor/decor1.webp" rate="10,000"/>
-          <DecorCard image="/Gallery/Decor/decor2.webp" rate="12,000" />
-          <DecorCard image="/Gallery/Decor/decor3.webp" rate="15,000" />
-          <DecorCard image="/Gallery/Decor/decor4.webp" rate="7,000" />
+          {[1, 2, 3, 4, 5].map((value, index) => {
+            return (
+              <DecorCard
+                images={[
+                  "/Gallery/Decor/decor2.webp",
+                  "/Gallery/Decor/decor1.webp",
+                  "/Gallery/Decor/decor3.webp",
+                ]}
+                rate="90,000"
+                heading="Standard Room"
+                description=""
+              />
+            );
+          })}
         </section>
         <Footer />
       </div>

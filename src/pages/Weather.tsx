@@ -9,7 +9,7 @@ import SnowAnimation from "@/assets/Weather/snow.json";
 import nightclear from "@/assets/Weather/nightclear.json";
 import morningclear from "@/assets/Weather/morningclear.json";
 const DailyForecastCard = lazy(
-  () => import("@/components/cards/DailyForecast")
+  () => import("@/components/cards/DailyForecast"),
 );
 import Footer from "@/components/layout/Footer";
 
@@ -24,12 +24,12 @@ import {
   animate,
   useInView,
 } from "framer-motion";
-import { WeatherApi } from "@/api/roomsApi";
+import { getWeatherData } from "@/api/roomsApi";
 import FrontLogo from "@/components/layout/FrontLogo";
 function Weather() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["FetchWeather"],
-    queryFn: WeatherApi,
+    queryFn: getWeatherData,
     staleTime: 60 * 60 * 1000, // 1 hour = 3600000 ms
     gcTime: 60 * 60 * 1000,
     refetchOnWindowFocus: false, // don’t refetch when window/tab gets focus again

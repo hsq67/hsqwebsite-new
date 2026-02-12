@@ -8,16 +8,16 @@ import { ChevronRight, ArrowRight } from "lucide-react";
 import BookingFoam from "@/components/BookingFoam";
 import Footer from "@/components/layout/Footer";
 import { useRoomStore } from "../store/store";
-import { CreateReservation } from "@/api/roomsApi";
+import { createBooking } from "@/api/roomsApi";
 import { PostBookingData } from "@/types/BookingForm";
 import { toast } from "react-toastify";
 // import ConfirmationDialog from "@/components/ConfirmationDialog";
 const ConfirmationDialog = React.lazy(
-  () => import("@/components/ConfirmationDialog")
+  () => import("@/components/ConfirmationDialog"),
 );
 function BookingFormpage() {
   const [Confirmation, setConfirmation] = useState(false);
-  const { Bookingwidget, BookingFormData } = useRoomStore();
+  const { bookingWidget, bookingFormData } = useRoomStore();
   const { state } = useLocation();
   const room = state;
   const firstAvailableRoom = room?.availableRooms?.[0];
@@ -25,8 +25,8 @@ function BookingFormpage() {
   // console.log("FirstAvaileRoom", firstAvailableRoom);
   // console.log("RoomID", firstAvailableRoom?._id);
   // console.log("First Imge", Firstimage);
-  const checkin = new Date(Bookingwidget.checkin);
-  const checkout = new Date(Bookingwidget.checkout);
+  const checkin = new Date(bookingWidget.checkin);
+  const checkout = new Date(bookingWidget.checkout);
   const totalNights = differenceInDays(checkout, checkin);
   // const TotalRent = room?.startingRate * totalNights;
   // console.log("TotalRent", TotalRent);
@@ -43,7 +43,7 @@ function BookingFormpage() {
   // console.log("booking name", BookingFormData.name);
   // console.log("contact", BookingFormData);
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: PostBookingData) => CreateReservation(data),
+    mutationFn: (data: PostBookingData) => createBooking(data),
     onSuccess: (res) => {
       console.log("Booking created successfully:", res);
       console.log("ResponseSucessMessage", res.message);
@@ -72,45 +72,45 @@ function BookingFormpage() {
     let isValid = true; // assume valid until proven otherwise
     const errors: Record<string, string> = {}; // store field-wise errors
 
-    if (!BookingFormData.name.trim()) {
+    if (!bookingFormData.name.trim()) {
       errors.name = "Name is required";
       isValid = false;
     }
-    if (!BookingFormData.address.trim()) {
+    if (!bookingFormData.address.trim()) {
       errors.address = "Address is required";
       isValid = false;
     }
-    if (!BookingFormData.email.trim()) {
+    if (!bookingFormData.email.trim()) {
       errors.email = "Email is required";
       isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(BookingFormData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingFormData.email)) {
       errors.email = "Invalid email format";
       isValid = false;
     }
-    if (!BookingFormData.contact.trim()) {
+    if (!bookingFormData.contact.trim()) {
       errors.contact = "Contact number is required";
       isValid = false;
-    } else if (!/^\d{10,15}$/.test(BookingFormData.contact)) {
+    } else if (!/^\d{10,15}$/.test(bookingFormData.contact)) {
       errors.contact = "Contact must be 10–15 digits";
       isValid = false;
     }
-    if (!BookingFormData.cnic.trim()) {
+    if (!bookingFormData.cnic.trim()) {
       errors.cnic = "CNIC is required";
       isValid = false;
-    } else if (!/^\d{13}$/.test(BookingFormData.cnic)) {
+    } else if (!/^\d{13}$/.test(bookingFormData.cnic)) {
       errors.cnic = "CNIC must be 13 digits";
       isValid = false;
     }
-    if (!BookingFormData.arrivaltime.trim()) {
+    if (!bookingFormData.arrivaltime.trim()) {
       errors.arrivaltime = "Arrival time is required";
       isValid = false;
     }
-    if (!BookingFormData.paymentmethod.trim()) {
+    if (!bookingFormData.paymentmethod.trim()) {
       errors.paymentmethod = "Payment method is required";
       isValid = false;
     }
-    if (!BookingFormData.terms.trim()) {
-      errors.paymentmethod = "Please checked Terms&Conditions";
+    if (!bookingFormData.terms.trim()) {
+      errors.terms = "Please checked Terms&Conditions";
       isValid = false;
     }
     if (!isValid) {
@@ -124,17 +124,17 @@ function BookingFormpage() {
     if (isValid) {
       console.log("✅ Form is valid, proceeding...");
       const mergeData = {
-        fullName: BookingFormData.name,
-        phone: BookingFormData.contact,
-        address: BookingFormData.address,
-        email: BookingFormData.email,
-        cnic: BookingFormData.cnic,
-        expectedArrivalTime: BookingFormData.arrivaltime,
-        promoCode: BookingFormData.promocode,
-        specialRequest: BookingFormData.requestmsg,
-        paymentMethod: BookingFormData.paymentmethod,
-        checkInDate: Bookingwidget.checkin,
-        checkOutDate: Bookingwidget.checkout,
+        fullName: bookingFormData.name,
+        phone: bookingFormData.contact,
+        address: bookingFormData.address,
+        email: bookingFormData.email,
+        cnic: bookingFormData.cnic,
+        expectedArrivalTime: bookingFormData.arrivaltime,
+        promoCode: bookingFormData.promocode,
+        specialRequest: bookingFormData.requestmsg,
+        paymentMethod: bookingFormData.paymentmethod,
+        checkInDate: bookingWidget.checkin,
+        checkOutDate: bookingWidget.checkout,
         roomId: firstAvailableRoom?._id,
       };
       mutate(mergeData);
@@ -232,9 +232,7 @@ function BookingFormpage() {
                   <div className="flex flex-row justify-between">
                     <h1 className="poppins-bold">Check-in:</h1>
                     <p>
-                      {Bookingwidget?.checkin
-                        ? Bookingwidget?.checkin
-                        : "2025-08-29"}
+                      {bookingWidget?.checkin ? bookingWidget?.checkin : "--"}
                     </p>
                   </div>
                 </div>
@@ -243,9 +241,7 @@ function BookingFormpage() {
                   <div className="flex flex-row justify-between">
                     <h1 className="poppins-bold">Check-out:</h1>
                     <p>
-                      {Bookingwidget?.checkout
-                        ? Bookingwidget?.checkout
-                        : "2025-10-30"}
+                      {bookingWidget?.checkout ? bookingWidget?.checkout : "--"}
                     </p>
                   </div>
                 </div>
@@ -266,9 +262,7 @@ function BookingFormpage() {
                 <div className="flex flex-col p-4">
                   <div className="flex flex-row justify-between">
                     <h1 className="poppins-bold">
-                      {Bookingwidget?.checkin
-                        ? Bookingwidget?.checkin
-                        : "2025-08-29"}
+                      {bookingWidget?.checkin ? bookingWidget?.checkin : "--"}
                     </h1>
                     <p>Rs.{room?.startingRate ? room?.startingRate : 0}/-</p>
                   </div>

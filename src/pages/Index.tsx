@@ -30,7 +30,7 @@ const Footer = lazy(() => import("@/components/layout/Footer"));
 import "swiper/css";
 import "swiper/css/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Get_All_Available_Room, GoogleReview } from "@/api/roomsApi";
+import { getAllRoomsByCategory, getReviews } from "@/api/roomsApi";
 import { RoomsGroupedResponse } from "@/types/Room";
 import FrontLogo from "@/components/layout/FrontLogo";
 // svg
@@ -45,6 +45,8 @@ import Restaurent from "@/components/svg/Restaurent";
 import AboutBed from "@/components/svg/AboutBed";
 import AboutSenicView from "@/components/svg/AboutSenicView";
 import AboutDinning from "@/components/svg/AboutDinning";
+import Gamingzone from "@/components/svg/Gamingzone";
+import WorkArea from "@/components/svg/WorkArea";
 // icons
 import { ArrowRight, Plus, Minus } from "lucide-react";
 
@@ -111,13 +113,16 @@ const Aminities: AminitiesItem[] = [
   {
     // restaurent
     icon: Restaurent,
-    lable: "Restaurent",
+    lable: "Restaurant",
   },
-  // {
-  //   // restaurent
-  //   icon: Parking,
-  //   lable: "Mountain Views",
-  // }
+  {
+    icon: Gamingzone,
+    lable: "Gaming Area",
+  },
+  {
+    icon: WorkArea,
+    lable: "Working Area",
+  },
 ];
 const kitchens = [
   {
@@ -153,7 +158,7 @@ const slides = [
     description:
       "At HSQ Tower, we redefine modern hospitality—blending style, innovation, and authentic warmth. ",
     buttonText: "Book now",
-    href: "/book",
+    href: "/rooms",
   },
   {
     image: v2,
@@ -162,7 +167,7 @@ const slides = [
     description:
       "Step Into our restaurant and indulge in a culinary journey where every dish is a masterpiece-crafter with passion",
     buttonText: "Book now",
-    href: "/book",
+    href: "/rooms",
   },
   {
     image: v3,
@@ -171,7 +176,7 @@ const slides = [
     description:
       "At HSQ Tower, Discover a selection of elegant living spaces-from cozy standard rooms to deluxe suites.",
     buttonText: "Book now",
-    href: "/book",
+    href: "/rooms",
   },
   {
     image: v4,
@@ -180,7 +185,7 @@ const slides = [
     description:
       "At HSQ Tower, every moment is designed around you .From exciting tours and fascinating to world class exhibition and vibrant trade show.",
     buttonText: "Book now",
-    href: "/book",
+    href: "/rooms",
   },
   // { ... }
 ];
@@ -200,7 +205,7 @@ const Index = () => {
   const { data, isLoading, isError, error, isSuccess } =
     useQuery<RoomsGroupedResponse>({
       queryKey: ["FetchRooms"],
-      queryFn: Get_All_Available_Room,
+      queryFn: getAllRoomsByCategory,
       staleTime: 60 * 60 * 1000, // 1 hour = 3600000 ms
       gcTime: 60 * 60 * 1000,
       refetchOnWindowFocus: false,
@@ -212,7 +217,7 @@ const Index = () => {
   // Fetched Reviews api
   const { data: Reviews, isSuccess: isReviewSuccess } = useQuery({
     queryKey: ["GoogleReviews"],
-    queryFn: GoogleReview,
+    queryFn: getReviews,
     staleTime: 60 * 60 * 1000, // 1 hour = 3600000 ms
     gcTime: 60 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -291,14 +296,14 @@ const Index = () => {
               <span className="block poppins-italic text-gray-800">
                 Experience Refined
               </span>
-              <span className="block poppins-bold text-gray-900 mt-2">
+              <span className="block poppins-bold text-primary mt-2">
                 Luxury Hospitality
               </span>
             </h1>
 
             <p className="poppins-medium text-gray-700 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
               Timeless elegance, secure surroundings, and thoughtfully designed
-              luxury rooms—crafted for your comfort and peace of mind.
+              luxury rooms crafted for your comfort and peace of mind.
             </p>
           </div>
 
@@ -306,7 +311,7 @@ const Index = () => {
             {/* Left Column - Image/Content */}
             <div className="relative">
               {/* Main Image */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[500px] group">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px] sm:h-[500px] group">
                 <Swiper
                   modules={[Navigation, Autoplay]}
                   spaceBetween={0}
@@ -379,10 +384,10 @@ const Index = () => {
                     </div>
                     <div>
                       <div className="poppins-bold text-3xl text-gray-900">
-                        25+
+                        51+
                       </div>
                       <div className="poppins-medium text-gray-700 text-sm">
-                        Years Excellence
+                        Fivestar Reviews
                       </div>
                     </div>
                   </div>
@@ -592,15 +597,15 @@ const Index = () => {
                   Where Every Detail Meets Luxury
                 </p>
               </h1>
-              <Link to="/aminities">
+              {/* <Link to="/aminities">
                 <div className="flex justify-center mt-4">
                   <Suspense>
                     <CommanButton label="Learn More" />
                   </Suspense>
                 </div>
-              </Link>
+              </Link> */}
             </div>
-            <div className="flex flex-row justify-center  order-1 lg:order-2 gap-3 w-full md:w-[60%] m-auto lg:w-[40%] 2xl:w-[35%] flex-wrap">
+            <div className="flex flex-row justify-center  order-1 lg:order-2 gap-3 w-full md:w-[60%] m-auto lg:w-[75%] 2xl:w-[50%] flex-wrap">
               {Aminities.map((data, index) => (
                 <div
                   key={index}

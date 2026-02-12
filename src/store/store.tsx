@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import {
   RoomsGroupedResponse,
-  AvailableRoomGroupedResponse,
+  AvailableRoomCategoryResponse,
 } from "@/types/Room";
 import { BookingFormDataType } from "@/types/BookingForm";
 import { ReviewSummary } from "@/types/Review";
@@ -18,18 +18,23 @@ import { ReviewSummary } from "@/types/Review";
 //   paymentmethod: string;
 // }
 interface RoomState {
-  // For get api
-  rooms: RoomsGroupedResponse; // store the rooms data
-  setRooms: (rooms: RoomsGroupedResponse) => void; // function to update rooms
-  AvaibleRooms: AvailableRoomGroupedResponse;
-  setAvaibleRooms: (AvaibleRooms: AvailableRoomGroupedResponse) => void;
-  // Save checkin and Check out
-  Bookingwidget: {
+  // All rooms grouped by category
+  rooms: RoomsGroupedResponse;
+  setRooms: (rooms: RoomsGroupedResponse) => void;
+
+  // Available rooms (filtered by date/guests)
+  availableRooms: AvailableRoomCategoryResponse;
+  setAvailableRooms: (availableRooms: AvailableRoomCategoryResponse) => void;
+
+  // Booking widget state (check-in/checkout dates)
+  bookingWidget: {
     checkin: string;
     checkout: string;
   };
-  setBookingwidget: (data: { checkin: string; checkout: string }) => void;
-  BookingFormData: BookingFormDataType;
+  setBookingWidget: (data: { checkin: string; checkout: string }) => void;
+
+  // Booking form data
+  bookingFormData: BookingFormDataType;
   setBookingFormData: (data: BookingFormDataType) => void;
 }
 
@@ -40,12 +45,12 @@ interface ReviewState {
 
 export const useRoomStore = create<RoomState>((set) => ({
   rooms: [],
-  AvaibleRooms: [],
-  Bookingwidget: {
+  availableRooms: [],
+  bookingWidget: {
     checkin: "",
     checkout: "",
   },
-  BookingFormData: {
+  bookingFormData: {
     name: "",
     contact: "",
     address: "",
@@ -58,14 +63,14 @@ export const useRoomStore = create<RoomState>((set) => ({
     terms: "",
   },
   setRooms: (rooms) => set({ rooms }),
-  setAvaibleRooms: (AvaibleRooms) => set({ AvaibleRooms }),
-  setBookingwidget: (data) =>
+  setAvailableRooms: (availableRooms) => set({ availableRooms }),
+  setBookingWidget: (data) =>
     set(() => ({
-      Bookingwidget: data,
+      bookingWidget: data,
     })),
   setBookingFormData: (data) =>
     set((state) => ({
-      BookingFormData: { ...state.BookingFormData, ...data },
+      bookingFormData: { ...state.bookingFormData, ...data },
     })),
 }));
 

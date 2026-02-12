@@ -62,9 +62,10 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 h-20 duration-300",
+        "fixed inset-x-0 z-40 h-16 duration-300",
         isScrolled ? "bg-transparent" : "bg-transparent",
       )}
+      style={{ top: "62px" }}
     >
       <Container className="relative h-full">
         <div className="flex items-center h-full">

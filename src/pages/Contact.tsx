@@ -4,7 +4,8 @@ import { Phone, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ContactCard from "@/components/cards/ContactCard";
 import Footer from "@/components/layout/Footer";
-
+import Viewbutton from "@/components/buttons/Viewbutton";
+import { Link } from "react-router-dom";
 function Contact() {
   return (
     <>
@@ -28,7 +29,7 @@ function Contact() {
       <section className="backgroundcolor pb-20 relative">
         {/* Contact Form Container - Negative Margin Overlap */}
         <div className="container mx-auto px-4 md:px-10 lg:px-60 flex justify-center -mt-32 md:-mt-48 lg:-mt-52 relative z-20 mb-20">
-          <div className="lg:w-3/4">
+          <div className="w-full g:w-3/4">
             <ContactForm />
           </div>
         </div>
@@ -39,11 +40,10 @@ function Contact() {
             {/* LEFT CONTENT */}
             <div className="space-y-4 text-center sm:text-left">
               <h2 className=" text-3xl md:text-4xl poppins-bold leading-tight">
-                We’d Love To <br /> Hear From You
+                We’d Love To Hear From You
               </h2>
               <p className="text-sm poppins-medium">
-                We value your comfort and privacy. <br />
-                Review our Terms.
+                We value your comfort and privacy. Review our Terms.
               </p>
             </div>
 
@@ -59,6 +59,12 @@ function Contact() {
                 alt="roompic"
                 className="w-full md:w-[90%] h-[250px] md:h-[300px] bg-bottom object-cover shadow-md rounded-lg"
               />
+              <div className="flex justify-center py-10">
+                {/* book now button  */}
+                <Link to={"/rooms"}>
+                  <Viewbutton label="Book Now" />
+                </Link>
+              </div>
             </div>
           </div>
 

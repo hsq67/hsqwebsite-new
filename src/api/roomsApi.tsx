@@ -3,7 +3,9 @@
 import axios, { AxiosError } from "axios";
 import {
   RoomsGroupedResponse,
-  AvailableRoomGroupedResponse,
+  AvailableRoomCategoryResponse,
+  AvailableRoomsResponse,
+  GetAvailableRoomsParams,
 } from "@/types/Room";
 import { BookingFormDataType, PostBookingData } from "@/types/BookingForm";
 const BACKEND_URL = import.meta.env.VITE_API_BASE_URL;
@@ -18,20 +20,16 @@ interface SearchAvailableRoomsParams {
   checkout: string;
   guests: string;
 }
-interface FormBookingData {}
-// For the search results
-export const SearchAvailableRooms = async ({
+// Search available rooms by check-in/checkout dates and guest count
+export const searchAvailableRooms = async ({
   checkin,
   checkout,
   guests,
-}: SearchAvailableRoomsParams): Promise<AvailableRoomGroupedResponse> => {
+}: SearchAvailableRoomsParams): Promise<AvailableRoomCategoryResponse> => {
   try {
-    const response = await axios.get(
-      `${BACKEND_URL}/api/public/available-rooms`,
-      {
-        params: { checkin, checkout, guests },
-      }
-    );
+    const response = await axios.get(`${BACKEND_URL}/api/public/search-rooms`, {
+      params: { checkin, checkout, guests },
+    });
     // console.log("Response", response.data);
 
     return response.data;
@@ -42,52 +40,66 @@ export const SearchAvailableRooms = async ({
   }
 };
 
-// new api
-export const Get_All_Available_Room =
+// Get all rooms grouped by category (no date filtering)
+export const getAllRoomsByCategory =
   async (): Promise<RoomsGroupedResponse> => {
     try {
       const response = await axios.get(
-        `${BACKEND_URL}/api/public/category-details`
+        `${BACKEND_URL}/api/public/rooms-by-category`,
       );
-      console.log("GET Available Response", response.data);
+      console.log("Available rooms by category response", response.data);
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching rooms:", error);
-      throw new Error("Failed to fetch available rooms");
+      console.error("Error fetching rooms by category:", error);
+      throw new Error("Failed to fetch rooms by category");
     }
   };
 
-// new api
-export const WeatherApi = async () => {
+// Get weather forecast data from OpenWeatherMap
+export const getWeatherData = async () => {
   try {
     const response = await axios.get(`${WEATHERAPI_URL}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching rooms:", error);
-    throw new Error("Failed To Fetch Available Rooms");
+    console.error("Error fetching weather data:", error);
+    throw new Error("Failed to fetch weather data");
   }
 };
 
-// Create Reservation Api
-export const CreateReservation = async (BookingData: PostBookingData) => {
+// Create a new booking reservation
+export const createBooking = async (bookingData: PostBookingData) => {
   try {
     const response = await axios.post(
-      `${BACKEND_URL}/api/public/reservations`,
-      BookingData
+      `${BACKEND_URL}/api/public/bookings`,
+      bookingData,
     );
     return response.data;
   } catch (err: any) {
-    const message =
-      err.response?.data?.message || "Failed to fetch available rooms";
-    console.log(" ReservationMessage", message);
+    const message = err.response?.data?.message || "Failed to create booking";
+    console.log("Booking error message", message);
     throw new Error(message);
   }
 };
 
-// Google Review Api
-export const GoogleReview = async () => {
-  const response = await axios.get(`${BACKEND_URL}/api/public/googlereview`);
-  // console.log("Goole_Review_Response", response.data);
+// Get Google reviews
+export const getReviews = async () => {
+  const response = await axios.get(`${BACKEND_URL}/api/public/reviews`);
+  // console.log("Google_Review_Response", response.data);
+  return response.data;
+};
+// Get all publicly visible rooms with optional category filter
+export const getAllPublicRooms = async (
+  params?: GetAvailableRoomsParams,
+): Promise<AvailableRoomsResponse> => {
+  const response = await axios.get<AvailableRoomsResponse>(
+    `${BACKEND_URL}/api/public/rooms`,
+    {
+      params: {
+        category: params?.category,
+      },
+    },
+  );
+
   return response.data;
 };

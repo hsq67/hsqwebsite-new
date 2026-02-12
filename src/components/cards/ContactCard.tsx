@@ -14,7 +14,9 @@ const ContactCard: React.FC<data> = ({ heading, description, icon: Icon }) => {
         <Icon className=" w-8 h-8 lg:w-10 lg:h-10" color="white" />
       </div>
       <h3 className="poppins-bold mb-2">{heading}</h3>
-      <p className="text-sm text-black text-center w-[70%]">{description}</p>
+      <p className="text-sm text-black poppins-semibold text-center w-[70%]">
+        {description}
+      </p>
     </div>
   );
 };

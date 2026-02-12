@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Search, Plus, Minus, Users } from "lucide-react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
-import { SearchAvailableRooms } from "@/api/roomsApi";
+import { searchAvailableRooms } from "@/api/roomsApi";
 import { toast } from "react-toastify";
-import { AvailableRoomGroupedResponse } from "@/types/Room";
+import { AvailableRoomCategoryResponse } from "@/types/Room";
 import { useRoomStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import {
@@ -26,7 +26,7 @@ function BookingWidget() {
   const [children, setChildren] = useState(0);
   const [guests, setGuests] = useState<string | null>(null);
 
-  const { setAvaibleRooms, setBookingwidget, Bookingwidget } = useRoomStore();
+  const { setAvailableRooms, setBookingWidget, bookingWidget } = useRoomStore();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
     arrival: false,
@@ -43,10 +43,10 @@ function BookingWidget() {
     }
   }, [adults, children]);
 
-  const { refetch } = useQuery<AvailableRoomGroupedResponse>({
+  const { refetch } = useQuery<AvailableRoomCategoryResponse>({
     queryKey: ["available-rooms", arrival, departure, guests],
     queryFn: () =>
-      SearchAvailableRooms({ checkin: arrival, checkout: departure, guests }),
+      searchAvailableRooms({ checkin: arrival, checkout: departure, guests }),
     enabled: false,
   });
 
