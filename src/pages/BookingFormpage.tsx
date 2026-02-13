@@ -2,7 +2,6 @@ import { addDays, differenceInDays } from "date-fns";
 import React, { useState, lazy, Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Mutation, useMutation } from "@tanstack/react-query";
-import Toastify from "@/components/Toastify";
 import tembookingform from "@/assets/tembookingform.webp";
 import { ChevronRight, ArrowRight } from "lucide-react";
 import BookingFoam from "@/components/BookingFoam";
@@ -17,6 +16,9 @@ const ConfirmationDialog = React.lazy(
 );
 function BookingFormpage() {
   const [Confirmation, setConfirmation] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
   const { bookingWidget, bookingFormData } = useRoomStore();
   const { state } = useLocation();
   const room = state;
@@ -56,6 +58,7 @@ function BookingFormpage() {
           fontWeight: "600",
         },
       });
+      setValidationErrors({});
       setConfirmation(true);
     },
     onError: (err: any) => {
@@ -64,8 +67,15 @@ function BookingFormpage() {
         err?.message || // from JS Error
         "Something went wrong!";
       console.log("MessageReservation", message);
-      // <Toastify message={message} />;
-      Toastify({ message: message });
+      toast.error(message, {
+        position: "top-center",
+        style: {
+          background: "#ff6b6b",
+          color: "white",
+          border: "1px solid #ff4444",
+          fontWeight: "600",
+        },
+      });
     },
   });
   const HandleValidation = () => {
@@ -110,12 +120,12 @@ function BookingFormpage() {
       isValid = false;
     }
     if (!bookingFormData.terms.trim()) {
-      errors.terms = "Please checked Terms&Conditions";
+      errors.terms = "Please accept Terms & Conditions";
       isValid = false;
     }
-    if (!isValid) {
-      Object.values(errors).forEach((msg) => Toastify({ message: msg }));
-    }
+
+    // Update validation errors state for field-level display
+    setValidationErrors(errors);
 
     return { isValid, errors };
   };
@@ -195,7 +205,7 @@ function BookingFormpage() {
           {/* form section */}
           <div className="backgroundcolor w-full pt-10 pb-20 space-y-5 lg:space-y-0 lg:space-x-10 grid grid-cols-1 lg:grid-cols-2">
             <div className="pl-4 pr-4 lg:ml-20">
-              <BookingFoam />
+              <BookingFoam errors={validationErrors} />
             </div>
             <div className="pr-4 pl-4 lg:pl-0 lg:pr-0">
               <div className=" w-full  lg:w-[70%] bg-[#FFFAF1] rounded-3xl shadow-xl">

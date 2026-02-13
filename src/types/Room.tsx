@@ -65,6 +65,8 @@ export interface AvailableRoomDetail {
   cleanliness: string;
   view: "Lobby Facing" | "Terrace View" | "Valley View" | "Corner";
   category: BackendRoomCategory;
+  publicName?: string;
+  publicDescription?: string;
 }
 
 // API Response

@@ -597,13 +597,13 @@ const Index = () => {
                   Where Every Detail Meets Luxury
                 </p>
               </h1>
-              {/* <Link to="/aminities">
+              <Link to="/rooms">
                 <div className="flex justify-center mt-4">
                   <Suspense>
-                    <CommanButton label="Learn More" />
+                    <CommanButton label="Book now" />
                   </Suspense>
                 </div>
-              </Link> */}
+              </Link>
             </div>
             <div className="flex flex-row justify-center  order-1 lg:order-2 gap-3 w-full md:w-[60%] m-auto lg:w-[75%] 2xl:w-[50%] flex-wrap">
               {Aminities.map((data, index) => (
@@ -624,7 +624,7 @@ const Index = () => {
       {/* Rooms and Suites */}
       <section className="backgroundcolor flex pt-10 justify-center flex-col items-center pb-10  ">
         <h1 className="poppins-bold text-2xl sm:text-3xl 2xl:text-4xl">
-          Rooms & Suites
+          Where Comfort Meets Style
         </h1>
         <p className="text-sm poppins-medium 2xl:text-lg">
           Discover Our Collection of Elegant Rooms

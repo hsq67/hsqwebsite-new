@@ -3,12 +3,16 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import Button from "@/components/buttons/Button";
 import { AvailableRoomDetail } from "@/types/Room";
 import { useNavigate } from "react-router-dom";
-
+import { Dot } from "lucide-react";
 interface RoomCardProps {
   room: AvailableRoomDetail;
+  hasSearchCriteria?: boolean;
 }
 
-const RoompageCard: React.FC<RoomCardProps> = ({ room }) => {
+const RoompageCard: React.FC<RoomCardProps> = ({
+  room,
+  hasSearchCriteria = false,
+}) => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   const [isHovered, setIsHovered] = React.useState(false);
@@ -112,24 +116,42 @@ const RoompageCard: React.FC<RoomCardProps> = ({ room }) => {
       </div>
       {/* Middle Content */}
       <div className="flex-1 flex flex-col justify-between">
-        {/* 3 Rooms Available */}
-        {/* <div className="bg-green-200 border-2 border-[#42DE56] text-center w-fit px-5 py-2 rounded-lg ">
-          <p>
-            <span className="pl-2">Room Available</span>{" "}
-          </p>
-        </div> */}
+        {/* 3 Rooms Available - Only show when user filters by check-in/checkout */}
+        {hasSearchCriteria && (
+          <div className="bg-green-200 border-2 border-[#42DE56] text-center w-fit px-2 py-1.5 rounded-lg ">
+            <p>
+              <span className="pl-2">Room Available</span>{" "}
+            </p>
+          </div>
+        )}
         <div>
-          <h2 className="poppins-bold text-xl">
+          {/* Category and Room Type */}
+          <h2 className="poppins-bold text-xl ">
             {room.bedType} - {room.category}
           </h2>
+
+          {/* Description */}
           <p className="text-black mt-2 poppins-medium text-sm flex-wrap">
             {room?.description
               ? room.description.slice(0, 200) +
                 (room.description.length > 200 ? "..." : "")
               : "A cozy retreat offering comfort, elegance, and all the essentials for a relaxing stay."}
           </p>
+
+          {/* Amenities with Bullet Points */}
+          <div className="mt-4 space-y-2">
+            <div className="flex items-start gap-2">
+              <span className="text-[#D7AB4E] poppins-bold text-lg">•</span>
+              {/* <Dot color="text-primary" size={40} /> */}
+              <p className="poppins-medium text-[16px]">Free Mattress</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#D7AB4E] poppins-bold text-lg">•</span>
+              <p className="poppins-medium text-[16px]">Free Breakfast</p>
+            </div>
+          </div>
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <button className="mt-4 text-sm text-black poppins-bold">
             View Amenities
           </button>
@@ -139,7 +161,7 @@ const RoompageCard: React.FC<RoomCardProps> = ({ room }) => {
           >
             <ChevronRight color={"white"} strokeWidth={3} size={20} />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Price Section */}
@@ -203,7 +225,7 @@ const RoompageCard: React.FC<RoomCardProps> = ({ room }) => {
           <h4 className="poppins-semibold">Amenities</h4>
           <div className="border-t-[1px]  border-neutral-400 w-full mt-1" />
           <p className="text-sm poppins-medium text-black mt-1">
-            {room?.amenities?.length === 0
+            {!room?.amenities || room.amenities.length === 0
               ? "Free Wifi, Safety, Laundry, Ironing, Minibar, Telephone, Inroom safety"
               : room.amenities.join(", ")}
           </p>

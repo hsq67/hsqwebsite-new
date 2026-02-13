@@ -9,7 +9,6 @@ import { searchAvailableRooms } from "@/api/roomsApi";
 import { toast } from "react-toastify";
 import { AvailableRoomCategoryResponse } from "@/types/Room";
 import { useRoomStore } from "@/store/store";
-import { Link } from "react-router-dom";
 import {
   Popover,
   PopoverContent,
@@ -18,46 +17,107 @@ import {
 import { Button } from "@/components/ui/button";
 
 function BookingWidget() {
-  const [departure, setDeparture] = useState<string | null>(null);
-  const [arrival, setArrival] = useState<string | null>(null);
+  const [checkout, setCheckout] = useState<string | null>(null);
+  const [checkin, setCheckin] = useState<string | null>(null);
 
   // Guest state
   const [adults, setAdults] = useState(0);
-  const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
   const [guests, setGuests] = useState<string | null>(null);
 
   const { setAvailableRooms, setBookingWidget, bookingWidget } = useRoomStore();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
-    arrival: false,
-    departure: false,
+    checkin: false,
+    checkout: false,
     guests: false,
   });
 
-  // Update total guests when adults or children change
+  // Update total guests when adults or infants change
   useEffect(() => {
-    const totalGuests = adults + children;
+    const totalGuests = adults + infants;
     setGuests(totalGuests > 0 ? totalGuests.toString() : null);
     if (totalGuests > 0) {
       setErrors((prev) => ({ ...prev, guests: false }));
     }
-  }, [adults, children]);
+  }, [adults, infants]);
 
   const { refetch } = useQuery<AvailableRoomCategoryResponse>({
-    queryKey: ["available-rooms", arrival, departure, guests],
+    queryKey: ["available-rooms", checkin, checkout, adults, infants],
     queryFn: () =>
-      searchAvailableRooms({ checkin: arrival, checkout: departure, guests }),
+      searchAvailableRooms({
+        checkin: checkin,
+        checkout: checkout,
+        adults,
+        infants,
+      }),
     enabled: false,
   });
 
-  const handleDepartureChange = (date: Date | null) => {
-    setDeparture(date ? format(date, "yyyy-MM-dd") : null);
-    setErrors((prev) => ({ ...prev, departure: false }));
+  const handleCheckoutChange = (date: Date | null) => {
+    setCheckout(date ? format(date, "yyyy-MM-dd") : null);
+    setErrors((prev) => ({ ...prev, checkout: false }));
   };
 
-  const handleArrivalChange = (date: Date | null) => {
-    setArrival(date ? format(date, "yyyy-MM-dd") : null);
-    setErrors((prev) => ({ ...prev, arrival: false }));
+  const handleCheckinChange = (date: Date | null) => {
+    setCheckin(date ? format(date, "yyyy-MM-dd") : null);
+    setErrors((prev) => ({ ...prev, checkin: false }));
+  };
+
+  const handleBookNow = () => {
+    // Validation
+    // const newErrors = {
+    //   checkin: !checkin,
+    //   checkout: !checkout,
+    //   guests: guests === null,
+    // };
+    // setErrors(newErrors);
+
+    if (!checkin || !checkout || guests === null) {
+      return navigate("/rooms");
+      //  toast.error("Please fill all booking details", {
+      //   position: "top-center",
+      //   style: {
+      //     background: "#dfab4e",
+      //     color: "black",
+      //     border: "1px solid #fbbf24",
+      //     fontWeight: "600",
+      //   },
+      // });
+    }
+
+    const checkinDate = new Date(checkin);
+    const checkoutDate = new Date(checkout);
+
+    if (checkoutDate <= checkinDate) {
+      return toast.error("Check-out must be after check-in.", {
+        position: "top-center",
+        style: {
+          background: "#dfab4e",
+          color: "black",
+          border: "1px solid #fbbf24",
+          fontWeight: "600",
+        },
+      });
+    }
+
+    // Store booking data in global store
+    setBookingWidget({
+      checkin: checkin,
+      checkout: checkout,
+      adults,
+      infants,
+    });
+
+    // Navigate to rooms with search parameters
+    const searchParams = new URLSearchParams({
+      checkin: checkin,
+      checkout: checkout,
+      adults: adults.toString(),
+      infants: infants.toString(),
+    });
+
+    navigate(`/rooms?${searchParams.toString()}`);
   };
 
   // const Validation = async () => {
@@ -140,22 +200,22 @@ function BookingWidget() {
 
           {/* INPUT ROW */}
           <div className="flex gap-2 pl-2 xs:pl-4 lg:gap-7 2xl:gap-10 xs:flex-row items-center">
-            {/* Arrival */}
+            {/* Check-in */}
             <div className="flex items-center h-12">
               <Datepicker
                 title="Check-in"
-                value={arrival}
-                hasError={errors.arrival}
-                onChange={handleArrivalChange}
+                value={checkin}
+                hasError={errors.checkin}
+                onChange={handleCheckinChange}
               />
             </div>
-            {/* Departure */}
+            {/* Check-out */}
             <div className="flex items-center h-12">
               <Datepicker
                 title="Check-out"
-                value={departure}
-                hasError={errors.departure}
-                onChange={handleDepartureChange}
+                value={checkout}
+                hasError={errors.checkout}
+                onChange={handleCheckoutChange}
               />
             </div>
 
@@ -178,9 +238,9 @@ function BookingWidget() {
                       <div className="flex items-center gap-2 truncate">
                         <Users className="h-4 w-4 opacity-50 shrink-0" />
                         <span className="truncate">
-                          {adults === 0 && children === 0
+                          {adults === 0 && infants === 0
                             ? "Select Guests"
-                            : `${adults} ${adults === 1 ? "Adult" : "Adults"}, ${children} ${children === 1 ? "Child" : "Children"}`}
+                            : `${adults} ${adults === 1 ? "Adult" : "Adults"}, ${infants} ${infants === 1 ? "Infant" : "Infants"}`}
                         </span>
                       </div>
                     </Button>
@@ -195,7 +255,7 @@ function BookingWidget() {
                           Select Guests
                         </h4>
                         <p className="text-sm poppins-light text-muted-foreground">
-                          Set the number of adults and children.
+                          Set the number of adults and infants.
                         </p>
                       </div>
                       <div className="grid gap-4">
@@ -235,14 +295,14 @@ function BookingWidget() {
 
                         <div className="h-[1px] w-full bg-slate-200" />
 
-                        {/* Children Row */}
+                        {/* Infants Row */}
                         <div className="flex items-center justify-between">
                           <div className="grid gap-0.5">
                             <label className="text-sm poppins-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                              Children
+                              Infants
                             </label>
                             <span className="text-sm poppins-light text-muted-foreground">
-                              Ages 2–12
+                              Under 2 years
                             </span>
                           </div>
                           <div className="flex items-center gap-3">
@@ -251,20 +311,20 @@ function BookingWidget() {
                               size="icon"
                               className="h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 border-none"
                               onClick={() =>
-                                setChildren(Math.max(0, children - 1))
+                                setInfants(Math.max(0, infants - 1))
                               }
-                              disabled={children <= 0}
+                              disabled={infants <= 0}
                             >
                               <Minus className="h-3 w-3" />
                             </Button>
                             <span className="w-4 text-center text-sm poppins-light">
-                              {children}
+                              {infants}
                             </span>
                             <Button
                               variant="outline"
                               size="icon"
                               className="h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 border-none"
-                              onClick={() => setChildren(children + 1)}
+                              onClick={() => setInfants(infants + 1)}
                             >
                               <Plus className="h-3 w-3" />
                             </Button>
@@ -280,15 +340,13 @@ function BookingWidget() {
 
           {/* SEARCH BUTTON */}
           <div className="poppins-semibold relative flex justify-center w-full sm:w-fit items-end mb-5 lg:mb-3 h-[72px]">
-            <Link to="/book">
-              <button
-                // onClick={Validation}
-                className="bg-gradient-to-l w-[270px] sm:w-fit px-12 py-2
-      text-black rounded-full from-[#D7AB4E] to-[#D49136]"
-              >
-                Search
-              </button>
-            </Link>
+            <button
+              onClick={handleBookNow}
+              className="bg-gradient-to-l w-[270px] sm:w-fit px-12 py-2
+      text-black rounded-full from-[#D7AB4E] to-[#D49136] hover:opacity-90 transition-opacity"
+            >
+              Book now
+            </button>
 
             <div className="absolute left-16 xs:left-20 md:left-2 lg:left-3 top-10 bg-black rounded-full px-1 py-1">
               <Search size={18} color="white" />

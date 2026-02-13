@@ -11,6 +11,9 @@ import morningclear from "@/assets/Weather/morningclear.json";
 const DailyForecastCard = lazy(
   () => import("@/components/cards/DailyForecast"),
 );
+const NearbyWeatherCard = lazy(
+  () => import("@/components/cards/NearbyWeatherCard"),
+);
 import Footer from "@/components/layout/Footer";
 
 import bgone from "@/assets/Weather/bgone.webp";
@@ -26,6 +29,54 @@ import {
 } from "framer-motion";
 import { getWeatherData } from "@/api/roomsApi";
 import FrontLogo from "@/components/layout/FrontLogo";
+
+// Static data for nearby weather areas
+const nearbyAreas = [
+  {
+    id: 1,
+    locationName: "Bara Gali",
+    temperature: 12,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+  {
+    id: 2,
+    locationName: "Khaira Gali",
+    temperature: 14,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+  {
+    id: 3,
+    locationName: "Nathia Gali",
+    temperature: 22,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+  {
+    id: 4,
+    locationName: "Ayubia",
+    temperature: 22,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+  {
+    id: 5,
+    locationName: "Ghora Gali",
+    temperature: 14,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+
+  {
+    id: 6,
+    locationName: "Patriata",
+    temperature: 10,
+    condition: "Mostly Sunny",
+    icon: "☀️",
+  },
+];
+
 function Weather() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["FetchWeather"],
@@ -75,6 +126,16 @@ function Weather() {
     newDate.setDate(date.getDate() + addDays);
     return newDate.toLocaleDateString("en-US", { weekday: "long" });
   };
+
+  const getNextDateFormatted = (addDays: number) => {
+    const newDate = new Date();
+    newDate.setDate(date.getDate() + addDays);
+    return `${newDate.getDate().toString().padStart(2, "0")}/${(
+      newDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${newDate.getFullYear()}`;
+  };
   // console.log(getNextDayName(3));
   if (isLoading) return <FrontLogo />;
   // if (isError) return <p>Error</p>;
@@ -85,10 +146,10 @@ function Weather() {
     <>
       {/* hero section */}
       <section
-        className=" w-full bg-cover bg-bottom h-[50vh] lg:h-[90vh] "
+        className=" w-full bg-cover bg-bottom h-[50vh] lg:h-[60vh] "
         style={{ backgroundImage: `url(${weatherbg})` }}
       >
-        <div className="flex flex-col text-white justify-center items-center space-y-3 pt-20 sm:pt-36 2xl:pt-56">
+        <div className="flex flex-col text-white justify-center items-center space-y-3 pt-20 sm:pt-36 2xl:pt-36">
           <h1 className="Tuesdaynight text-[25px] sm:text-[50px] text-center 2xl:text-8xl">
             Weather
           </h1>
@@ -103,7 +164,7 @@ function Weather() {
         </div>
       </section>
       {/* body section */}
-      <section className="backgroundcolor ">
+      <section className="backgroundcolor">
         {/* Main Card Container */}
         <div
           className={`relative bottom-10  m-auto z-10 h-[430px] w-full lg:h-80 lg:w-[60%] rounded-3xl p-3 md:p-4 shadow-2xl bg-[#FFEBC2]`}
@@ -176,6 +237,7 @@ function Weather() {
           <Suspense>
             <DailyForecastCard
               day={getNextDayName(1)}
+              date={getNextDateFormatted(1)}
               maxTemp={data?.daily[0]?.temp?.day}
               minTemp={data?.daily[0]?.temp?.min}
               image={bgone}
@@ -184,6 +246,7 @@ function Weather() {
 
             <DailyForecastCard
               day={getNextDayName(2)}
+              date={getNextDateFormatted(2)}
               maxTemp={data?.daily[1]?.temp?.day}
               minTemp={data?.daily[1]?.temp?.min}
               image={bgtwo}
@@ -192,6 +255,7 @@ function Weather() {
 
             <DailyForecastCard
               day={getNextDayName(3)}
+              date={getNextDateFormatted(3)}
               maxTemp={data?.daily[2]?.temp?.day}
               minTemp={data?.daily[2]?.temp?.min}
               image={bgthree}
@@ -199,6 +263,30 @@ function Weather() {
             />
           </Suspense>
         </div>
+        {/* Weather near by areas murree */}
+        <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-12">
+          {/* Section Title */}
+          <div className="mb-10 md:mb-14 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl poppins-semibold text-primary uppercase tracking-wide">
+              Weather Near by Areas Murree
+            </h2>
+          </div>
+
+          {/* Nearby Weather Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+            <Suspense>
+              {nearbyAreas.map((area) => (
+                <NearbyWeatherCard
+                  key={area.id}
+                  locationName={area.locationName}
+                  temperature={area.temperature}
+                  condition={area.condition}
+                  weatherIcon={area.icon}
+                />
+              ))}
+            </Suspense>
+          </div>
+        </section>
       </section>
       <Footer />
     </>

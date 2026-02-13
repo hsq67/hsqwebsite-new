@@ -25,8 +25,8 @@ const RoomsRibbon: React.FC<RoomsRibbonProps> = ({
   return (
     <div className="w-full mx-auto mb-8 px-0 md:px-6">
       {/* Header Section with Count */}
-      <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-6 md:mb-8 px-4 md:px-0">
-        <div className="text-center md:text-left w-full">
+      <div className="flex flex-col md:flex-row items-center   mb-6 md:mb-8 px-4 md:px-0">
+        <div className="text-center  w-full">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl poppins-bold text-gray-900">
             Find Your <span className="text-[#D7AB4E]">Perfect Stay</span>
           </h2>

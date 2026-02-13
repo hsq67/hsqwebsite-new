@@ -62,10 +62,10 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 z-40 h-16 duration-300",
+        "fixed inset-x-0 z-40 h-16 duration-300 top-[85px] sm:top-14",
         isScrolled ? "bg-transparent" : "bg-transparent",
       )}
-      style={{ top: "62px" }}
+      // style={{ top: "62px" }}
     >
       <Container className="relative h-full">
         <div className="flex items-center h-full">
@@ -106,7 +106,7 @@ export const Header = () => {
 
                 {/* Book Now chip */}
                 <div className="pl-1">
-                  <Link to="/book">
+                  <Link to="/rooms">
                     <Button
                       size="sm"
                       className="rounded-full h-8 px-4 text-[12px] 2xl:text-[14px] font-semibold text-black bg-gradient-to-t from-[#D7AB4E] to-[#D49136]"
@@ -117,10 +117,10 @@ export const Header = () => {
                 </div>
 
                 {/* Divider before socials */}
-                <div className="mx-1 h-6 w-px bg-primary" />
+                {/* <div className="mx-1 h-6 w-px bg-primary" /> */}
 
                 {/* Social icons inside the pill */}
-                <div className="flex items-center gap-1 pr-1">
+                {/* <div className="flex items-center gap-1 pr-1">
                   {navSocial.map(({ Icon, href, label, external }) =>
                     external ? (
                       <a
@@ -144,7 +144,7 @@ export const Header = () => {
                       </Link>
                     ),
                   )}
-                </div>
+                </div> */}
               </nav>
             </div>
           </div>

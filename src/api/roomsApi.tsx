@@ -18,19 +18,21 @@ const WEATHERAPI_URL = `https://api.openweathermap.org/data/3.0/onecall?lat=${la
 interface SearchAvailableRoomsParams {
   checkin: string;
   checkout: string;
-  guests: string;
+  adults: number;
+  infants: number;
 }
 // Search available rooms by check-in/checkout dates and guest count
 export const searchAvailableRooms = async ({
   checkin,
   checkout,
-  guests,
+  adults,
+  infants,
 }: SearchAvailableRoomsParams): Promise<AvailableRoomCategoryResponse> => {
   try {
     const response = await axios.get(`${BACKEND_URL}/api/public/search-rooms`, {
-      params: { checkin, checkout, guests },
+      params: { checkin, checkout, adults, infants },
     });
-    // console.log("Response", response.data);
+    console.log("Response with params", response.data);
 
     return response.data;
   } catch (err: any) {
@@ -47,7 +49,7 @@ export const getAllRoomsByCategory =
       const response = await axios.get(
         `${BACKEND_URL}/api/public/rooms-by-category`,
       );
-      console.log("Available rooms by category response", response.data);
+      console.log("rooms by category response", response.data);
 
       return response.data;
     } catch (error) {
@@ -100,6 +102,6 @@ export const getAllPublicRooms = async (
       },
     },
   );
-
+  console.log("All public rooms response", response.data);
   return response.data;
 };

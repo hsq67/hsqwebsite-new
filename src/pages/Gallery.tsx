@@ -3,7 +3,7 @@ import gallerybg from "@/assets/indexpage/Gallerybg.webp";
 import Viewbutton from "@/components/buttons/Viewbutton";
 import Footer from "@/components/layout/Footer";
 import { useState, lazy, Suspense } from "react";
-
+import { Link } from "react-router-dom";
 // import components
 // const Restaurant = React.lazy(() => import("@/components/gallery/Restaurant"));
 const Rooms = React.lazy(() => import("@/components/gallery/Rooms"));
@@ -31,7 +31,7 @@ function Gallery() {
   const [active, setActive] = useState("Rooms");
 
   const ActiveComponent = categories.find(
-    (cat) => cat.name === active
+    (cat) => cat.name === active,
   )?.component;
   return (
     <>
@@ -54,9 +54,11 @@ function Gallery() {
               At HSQ Tower, we blend comfort, elegance, and thoughtful service
               to create experiences beyond a place to stay.
             </p>
-            <div className="flex justify-center mt-4 poppins-bold">
-              <Viewbutton label="Book Now" />
-            </div>
+            <Link to={"/rooms"}>
+              <div className="flex justify-center mt-4 poppins-bold">
+                <Viewbutton label="Book Now" />
+              </div>
+            </Link>
           </div>
         </section>
         {/* gallery section */}

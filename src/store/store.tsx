@@ -26,12 +26,19 @@ interface RoomState {
   availableRooms: AvailableRoomCategoryResponse;
   setAvailableRooms: (availableRooms: AvailableRoomCategoryResponse) => void;
 
-  // Booking widget state (check-in/checkout dates)
+  // Booking widget state (check-in/checkout dates and guest info)
   bookingWidget: {
     checkin: string;
     checkout: string;
+    adults: number;
+    infants: number;
   };
-  setBookingWidget: (data: { checkin: string; checkout: string }) => void;
+  setBookingWidget: (data: {
+    checkin?: string;
+    checkout?: string;
+    adults?: number;
+    infants?: number;
+  }) => void;
 
   // Booking form data
   bookingFormData: BookingFormDataType;
@@ -49,6 +56,8 @@ export const useRoomStore = create<RoomState>((set) => ({
   bookingWidget: {
     checkin: "",
     checkout: "",
+    adults: 0,
+    infants: 0,
   },
   bookingFormData: {
     name: "",
@@ -65,8 +74,8 @@ export const useRoomStore = create<RoomState>((set) => ({
   setRooms: (rooms) => set({ rooms }),
   setAvailableRooms: (availableRooms) => set({ availableRooms }),
   setBookingWidget: (data) =>
-    set(() => ({
-      bookingWidget: data,
+    set((state) => ({
+      bookingWidget: { ...state.bookingWidget, ...data },
     })),
   setBookingFormData: (data) =>
     set((state) => ({

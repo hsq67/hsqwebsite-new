@@ -11,6 +11,14 @@ export interface BookingFormDataType {
   terms: string;
 }
 
+// Booking search criteria (used in booking widget and filtering)
+export interface BookingSearchCriteria {
+  checkin: string;
+  checkout: string;
+  adults: number;
+  infants: number;
+}
+
 export interface PostBookingData {
   fullName: string;
   address: string;
