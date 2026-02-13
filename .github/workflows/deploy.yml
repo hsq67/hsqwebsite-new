@@ -1,0 +1,72 @@
+name: CI/CD - HSQ Public Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # ----------------------------
+      # Configure AWS
+      # ----------------------------
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ap-south-1 | \
+          docker login --username AWS --password-stdin 533284743348.dkr.ecr.ap-south-1.amazonaws.com
+
+      # ----------------------------
+      # Build & Push Docker Image
+      # ----------------------------
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
+            --build-arg VITE_WEATHER_API_KEY=${{ secrets.VITE_WEATHER_API_KEY }} \
+            --build-arg VITE_EMAIL_API_KEY=${{ secrets.VITE_EMAIL_API_KEY }} \
+            -t hsq-pub-website .
+
+      - name: Tag Docker image
+        run: docker tag hsq-pub-website:latest 533284743348.dkr.ecr.ap-south-1.amazonaws.com/hsq-pub-website:latest
+
+      - name: Push Docker image
+        run: docker push 533284743348.dkr.ecr.ap-south-1.amazonaws.com/hsq-pub-website:latest
+
+      # ----------------------------
+      # Deploy on EC2
+      # ----------------------------
+      - name: Deploy Docker container on remote server
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ubuntu
+          key: ${{ secrets.REMOTE_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            echo "Stopping old website container..."
+            docker stop hsq_website || true
+            docker rm hsq_website || true
+
+            echo "Removing old dangling images..."
+            docker images -f "dangling=true" -q | xargs -r docker rmi -f
+
+            echo "Pulling latest image..."
+            docker pull 533284743348.dkr.ecr.ap-south-1.amazonaws.com/hsq-pub-website:latest
+
+            echo "Running new container on port 8081..."
+            docker run -d -p 8081:80 \
+              --name hsq_website \
+              533284743348.dkr.ecr.ap-south-1.amazonaws.com/hsq-pub-website:latest
