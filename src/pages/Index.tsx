@@ -76,14 +76,24 @@ const FEATURES: FeatureItem[] = [
 type AminitiesItem = { icon: React.ElementType; lable: string };
 const Aminities: AminitiesItem[] = [
   {
-    // icon: IoIosFitness,
-    icon: Gym,
-    lable: "Fitness Center",
-  },
-  {
     // icon: Wifi,
     icon: Wifi,
     lable: "Free Wifi",
+  },
+  {
+    // icon: CircleParking,
+    icon: Parking,
+    lable: "Free Parking",
+  },
+  {
+    // icon: Coffee,
+    icon: Breakfast,
+    lable: "Free Breakfast",
+  },
+  {
+    // icon: IoIosFitness,
+    icon: Gym,
+    lable: "Fitness Center",
   },
   {
     // icon: WashingMachine,
@@ -94,16 +104,6 @@ const Aminities: AminitiesItem[] = [
     // icon: Users,
     icon: Conference,
     lable: "Conference Hall",
-  },
-  {
-    // icon: Coffee,
-    icon: Breakfast,
-    lable: "Free Breakfast",
-  },
-  {
-    // icon: CircleParking,
-    icon: Parking,
-    lable: "Free Parking",
   },
   {
     // icon: iron,

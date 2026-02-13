@@ -111,8 +111,8 @@ const Rooms = () => {
           <h1 className="Tuesdaynight text-[35px] sm:text-[50px] text-center">
             Look at The
           </h1>
-          <h1 className="poppins-bold text-3xl md:text-5xl lg:text-7xl">
-            ROOMS AND SUITES
+          <h1 className="poppins-bold text-2xl md:text-5xl lg:text-7xl">
+            ROOMS AND APARTMENTS
           </h1>
           <p className="text-center w-[22rem] sm:w-1/2">
             Discover refined comfort in our elegantly designed rooms.

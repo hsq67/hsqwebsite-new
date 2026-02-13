@@ -173,10 +173,10 @@ const RoompageCard: React.FC<RoomCardProps> = ({
         <div className="border-t-[1px] border-neutral-400 w-full" />
         <div className="space-y-1.5 overflow-hidden">
           <div className="flex flex-row justify-between poppins-regular">
-            <h1 className="text-[13px] sm:text-[15px] text-gray-700 poppins-regular">
+            <h1 className="text-[13px] sm:text-[15px]  poppins-regular poppins-bold">
               Room Number:
             </h1>
-            <p className="text-en">{room.roomNumber}</p>
+            <p className="text-en poppins-bold">{room.roomNumber}</p>
           </div>
           <div className="flex flex-row justify-between poppins-regular">
             <h1 className="text-[13px] sm:text-[15px] text-gray-700 poppins-regular">
