@@ -285,9 +285,9 @@ function Booking() {
             </div>
           </div>
           {/* whatsapp button */}
-          <div className="relative bottom-2 right-2">
+          {/* <div className="relative bottom-2 right-2">
             <WhatsAppButton />
-          </div>
+          </div> */}
           {/* Footer Section */}
           <div className="bg-black w-full mt-16 p-5 md:p-10 flex flex-col sm:flex-row justify-between text-white">
             {/* left */}

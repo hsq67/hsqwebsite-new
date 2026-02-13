@@ -6,6 +6,7 @@ import {
   FaTwitter,
   FaInstagram,
   FaYoutube,
+  FaTiktok,
 } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
 import { useState, useEffect } from "react";
@@ -53,33 +54,39 @@ const TopBanner = () => {
               {/* Social Icons */}
               <div className="flex items-center gap-1">
                 <a
-                  href="#"
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                  aria-label="Facebook"
-                >
-                  <FaFacebookF size={18} />
-                </a>
-                <a
-                  href="#"
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                  aria-label="Twitter"
-                >
-                  <FaTwitter size={18} />
-                </a>
-                <a
-                  href="#"
+                  href="https://www.instagram.com/hsqtowers/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-2 hover:bg-white/10 rounded-full transition-colors"
                   aria-label="Instagram"
                 >
                   <FaInstagram size={18} />
                 </a>
                 <a
+                  href="https://www.facebook.com/hsq.towers/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                  aria-label="Facebook"
+                >
+                  <FaFacebookF size={18} />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@hsqtower"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                  aria-label="TikTok"
+                >
+                  <FaTiktok size={18} />
+                </a>
+                {/* <a
                   href="#"
                   className="p-2 hover:bg-white/10 rounded-full transition-colors"
                   aria-label="YouTube"
                 >
                   <FaYoutube size={18} />
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -145,20 +152,42 @@ const TopBanner = () => {
               </span>
             </motion.div>
 
-            {/* Right: Social Icons */}
+            {/* Social Icons */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <a className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
-                <FaFacebookF size={20} />
-              </a>
-              <a className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
-                <FaTwitter size={20} />
-              </a>
-              <a className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
+              <a
+                href="https://www.instagram.com/hsqtowers/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors"
+                aria-label="Instagram"
+              >
                 <FaInstagram size={20} />
               </a>
-              <a className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
-                <FaYoutube size={20} />
+              <a
+                href="https://www.facebook.com/hsq.towers/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors"
+                aria-label="Facebook"
+              >
+                <FaFacebookF size={20} />
               </a>
+              <a
+                href="https://www.tiktok.com/@hsqtower"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors"
+                aria-label="TikTok"
+              >
+                <FaTiktok size={20} />
+              </a>
+              {/* <a
+                  href="#"
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                  aria-label="YouTube"
+                >
+                  <FaYoutube size={20} />
+                </a> */}
             </div>
           </div>
         )}

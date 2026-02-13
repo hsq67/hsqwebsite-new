@@ -806,15 +806,12 @@ const Index = () => {
           ></iframe>
         </div>
       </section>
-      <div className="relative">
-        <Suspense>
-          <WhatsAppButton />
-        </Suspense>
-      </div>
+      {/* <div className="relative">
+        <Suspense><WhatsAppButton /></Suspense>
+      </div> */}
       <Suspense>
         <Footer />
       </Suspense>
-      {/* <NewFooter></NewFooter> */}
     </>
   );
 };

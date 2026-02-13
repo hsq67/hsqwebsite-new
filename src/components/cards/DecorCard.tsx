@@ -75,7 +75,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 
 interface Cardprops {
   images?: string[];
-  description?: string;
+  description?: string[];
   rate?: string;
   heading?: string;
 }
@@ -187,20 +187,23 @@ const DecorCard: React.FC<Cardprops> = ({
         <h2 className="text-2xl poppins-bold text-black 2xl:text-3xl">
           {heading || "Essential Room Design"}
         </h2>
-        {(
-          description ||
-          "Turn your Murree stay into something unforgettable at HSQ Towers! With fresh flowers, stylish décor. and a cozy minimalist vibe, every moment feels. extra special. Whether it's a mini celebration or just treating yourself, it all begins at PKR 10,000—totally worth it."
-        )
-          .split(".")
-          .filter((item) => item.trim() !== "")
-          .map((point, index) => (
+        <ul className="mt-2 space-y-1">
+          {(
+            description ?? [
+              "Fresh flowers and stylish décor",
+              "Cozy minimalist ambience",
+              "Perfect setup for celebrations",
+              "Premium decoration experience",
+            ]
+          ).map((point, index) => (
             <li
               key={index}
               className="text-black text-sm poppins-regular leading-relaxed 2xl:text-[16px]"
             >
-              {point.trim()}.
+              • {point}
             </li>
           ))}
+        </ul>
       </div>
 
       {/* Right Side - Price & Button */}

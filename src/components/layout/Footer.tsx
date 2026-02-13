@@ -160,12 +160,14 @@ export default function Footer() {
                 },
                 {
                   Icon: PiTiktokLogo,
-                  href: "https://www.tiktok.com/@hsqtowers",
+                  href: "https://www.tiktok.com/@hsqtower",
                 },
               ].map(({ Icon, href }, i) => (
                 <a
                   key={i}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary text-black transition hover:brightness-110"
                   aria-label="social"
                 >

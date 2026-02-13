@@ -126,9 +126,9 @@ function Review() {
             </a>
           </div>
         </section>
-        <div className="relative">
+        {/* <div className="relative">
           <WhatsAppButton />
-        </div>
+        </div> */}
         <Footer />
       </div>
     </>
